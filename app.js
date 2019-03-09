@@ -1,10 +1,5 @@
 const Koa = require("koa");
-const Router = require("koa-router");
 const app = new Koa();
-const router = new Router({
-  prefix: "/api/v1"
-});
-
 const views = require("koa-views");
 const co = require("co");
 const convert = require("koa-convert");
@@ -18,8 +13,6 @@ const path = require("path");
 const config = require("./config");
 const routes = require("./routes");
 
-const ArticleModel = require("./controller/article.js");
-const UserModel = require("./controller/user.js");
 const cors = require("koa2-cors");
 
 const port = process.env.PORT || config.port;
@@ -59,9 +52,7 @@ app
       map: { njk: "nunjucks" },
       extension: "njk"
     })
-  )
-  .use(router.routes())
-  .use(router.allowedMethods());
+  );
 
 // logger
 app.use(async (ctx, next) => {
@@ -71,34 +62,9 @@ app.use(async (ctx, next) => {
   console.log(`${ctx.method} ${ctx.url} - $ms`);
 });
 
-router.get("/", async (ctx, next) => {
-  // ctx.body = 'Hello World'
-  ctx.state = {
-    title: "Koa2"
-  };
-  await ctx.render("index", ctx.state);
-});
+// 路由使用
+app.use(routes.routes(), routes.allowedMethods());
 
-// const router = new Router({
-//   prefix: "/api/v1"
-// });
-
-/**
- * 文章接口
- */
-// 创建文章接口（路由）
-// router.post("/article", ArticleModel.create);
-// 获取文章详情接口（路由）
-// router.get("/article/:id", ArticleModel.detail);
-
-/**
- * 用户接口
- */
-router.post("/users", UserModel.create);
-// 获取文章详情接口（路由）
-router.get("/users/:id", UserModel.detail);
-
-// routes(router);
 app.on("error", function(err, ctx) {
   console.log(err);
   logger.error("server error", err, ctx);
