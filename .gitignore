@@ -3,6 +3,7 @@ node_modules
 /dist/
 /dist.*
 /*.log
+/config/db.js
 
 # local env files
 .env.local
