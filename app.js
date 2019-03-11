@@ -11,7 +11,7 @@ const debug = require("debug")("koa2:server");
 const path = require("path");
 
 const config = require("./config");
-const routes = require("./routes");
+const router = require("./routes");
 
 const cors = require("koa2-cors");
 
@@ -63,7 +63,7 @@ app.use(async (ctx, next) => {
 });
 
 // 路由使用
-app.use(routes.routes(), routes.allowedMethods());
+app.use(router.routes(), router.allowedMethods());
 
 app.on("error", function(err, ctx) {
   console.log(err);
