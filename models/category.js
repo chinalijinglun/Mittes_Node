@@ -5,10 +5,10 @@ const CategorySecond = Sequelize.import("../services/categorySecond.js");
 class CategoryModel {
   static async createArticle(data) {
     return await CategoryFirst.create({
-      title: data.title, // 文章标题
-      author: data.author, // 文章作者
-      content: data.content, // 文章内容
-      category: data.category // 文章分类
+      title: data.title,
+      author: data.author,
+      content: data.content,
+      category: data.category
     });
   }
 
@@ -31,6 +31,78 @@ class CategoryModel {
         parent_id:id
       }
     });
+  }
+
+  /**
+   * 修改一级品类
+   * @param data
+   * @returns {Promise<*>}
+   */
+  static async updateCategoryFirst(data) {
+    return await CategoryFirst.update(
+      {
+        name:data.name,
+        img:data.img,
+        show:data.show,
+        weight:data.weight
+      },
+      {
+        where:{
+          id:data.id
+        }
+      }
+    )
+  }
+
+  /**
+   * 添加一级品类
+   * @param data
+   * @returns {Promise<*>}
+   */
+  static async createCategoryFirst(data) {
+    return await CategoryFirst.create({
+      name:data.name,
+      img:data.img,
+      show:data.show,
+      weight:data.weight
+    })
+  }
+
+  /**
+   * 修改二级品类
+   * @param data
+   * @returns {Promise<*>}
+   */
+  static async updateCategorySecond(data) {
+    return await CategorySecond.update(
+      {
+        name:data.name,
+        parent_id:data.parent_id,
+        property:data.property,
+        show:data.show,
+        weight:data.weight
+      },
+      {
+        where:{
+          id:data.id
+        }
+      }
+    )
+  }
+
+  /**
+   * 添加二级品类
+   * @param data
+   * @returns {Promise<*>}
+   */
+  static async createCategorySecond(data) {
+    return await CategorySecond.create({
+      name:data.name,
+      parent_id:data.parent_id,
+      property:data.property,
+      show:data.show,
+      weight:data.weight
+    })
   }
 }
 

@@ -10,7 +10,7 @@ module.exports = function(sequelize, DataTypes) {
       order_id: {
         type:DataTypes.INTEGER
       },
-      goods_id: {
+      good_id: {
         type:DataTypes.INTEGER
       },
       count: {

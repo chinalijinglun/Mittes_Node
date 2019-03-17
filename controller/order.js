@@ -2,33 +2,36 @@ const OrderModel = require("../models/order.js");
 
 class orderController {
 
-  static async create(ctx) {
-    // 接收客服端
-    let req = ctx.request.body;
+  static async createOrder(ctx) {
+    // let req = ctx.request.body;
+    let req = {
+      user_id:17,
+      status:'孙悟空',
+      pay_type:'猜猜看',
+      score_price:100,
+      total_price:200
+    };
     if (
-      1
-      // req.title && // 文章标题
-      // req.author && // 文章作者
-      // req.content && // 文章内容
-      // req.category // 文章分类
+      req.status &&
+      req.pay_type &&
+      req.score_price &&
+      req.total_price &&
+      req.user_id
     ) {
       try {
-        // 创建文章模型
-        const ret = await ArticleModel.createArticle(req);
-        // 把刚刚新建的文章ID查询文章详情，且返回新创建的文章信息
-        const data = await ArticleModel.getArticleDetail(ret.id);
 
+        const data = await OrderModel.createOrder(req);
         ctx.response.status = 200;
         ctx.body = {
           code: 200,
-          msg: "创建文章成功",
+          msg: "成功",
           data
         };
       } catch (err) {
         ctx.response.status = 412;
         ctx.body = {
           code: 200,
-          msg: "创建文章失败",
+          msg: "失败",
           data: err
         };
       }
@@ -42,17 +45,17 @@ class orderController {
   }
 
   /**
-   * 获取文章详情
+   * 根据订单type获取相应的订单列表
    * @param ctx
    * @returns {Promise.<void>}
    */
-  static async orderList(ctx) {
-    let id = ctx.params.id;
+  static async getOrderList(ctx) {
+    let type = ctx.query.type;
 
-    if (1) {
+    if (type) {
       try {
         // 查询文章详情模型
-        let data = await OrderModel.getAllOrder();
+        let data = await OrderModel.getOrderList(type);
         ctx.response.status = 200;
         ctx.body = {
           code: 200,
@@ -60,18 +63,86 @@ class orderController {
           data
         };
       } catch (err) {
-        console.log(err);
         ctx.response.status = 412;
         ctx.body = {
           code: 412,
           msg: "查询失败",
+          err
         };
       }
     } else {
       ctx.response.status = 416;
       ctx.body = {
         code: 416,
-        msg: "文章ID必须传"
+        msg: "订单type必须传"
+      };
+    }
+  }
+
+  /**
+   * 根据订单id获取所含商品信息
+   * @param ctx
+   * @returns {Promise<void>}
+   */
+
+  static async getOrderDetail(ctx) {
+    let id = ctx.query.id;
+    if (id) {
+      try {
+        let data = await OrderModel.getOrderDetail(id);
+        ctx.response.status = 200;
+        ctx.body = {
+          code: 200,
+          msg: "查询成功",
+          data
+        };
+      } catch (err) {
+        ctx.response.status = 412;
+        ctx.body = {
+          code: 412,
+          msg: "查询失败",
+          err
+        };
+      }
+    } else {
+      ctx.response.status = 416;
+      ctx.body = {
+        code: 416,
+        msg: "订单ID必须传"
+      };
+    }
+  }
+
+  /**
+   * 根据id获取用户信息
+   * @param ctx
+   * @returns {Promise<void>}
+   */
+
+  static async getUserInfo(ctx) {
+    let user_id = ctx.query.id;
+    if (user_id) {
+      try {
+        let data = await OrderModel.getUserInfo(user_id);
+        ctx.response.status = 200;
+        ctx.body = {
+          code: 200,
+          msg: "查询成功",
+          data
+        };
+      } catch (err) {
+        ctx.response.status = 412;
+        ctx.body = {
+          code: 412,
+          msg: "查询失败",
+          err
+        };
+      }
+    } else {
+      ctx.response.status = 416;
+      ctx.body = {
+        code: 416,
+        msg: "订单user_id必须传"
       };
     }
   }

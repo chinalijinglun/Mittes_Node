@@ -1,31 +1,32 @@
 const CategoryModel = require("../models/category");
 
 class categoryController {
-  static async create(ctx) {
+  /**
+   *
+   * @param ctx
+   * @returns {Promise<void>}
+   */
+  static async createCategoryFirst(ctx) {
     let req = ctx.request.body;
     if (
-      req.title && // 文章标题
-      req.author && // 文章作者
-      req.content && // 文章内容
-      req.category // 文章分类
+      req.name &&
+      req.img &&
+      req.show &&
+      req.weight
     ) {
       try {
-        // 创建文章模型
-        const ret = await CategoryFirstModel.createArticle(req);
-        // 把刚刚新建的文章ID查询文章详情，且返回新创建的文章信息
-        const data = await CategoryFirstModel.getArticleDetail(ret.id);
-
+        const data = await CategoryModel.createCategoryFirst(req);
         ctx.response.status = 200;
         ctx.body = {
           code: 200,
-          msg: "创建文章成功",
+          msg: "成功",
           data
         };
       } catch (err) {
         ctx.response.status = 412;
         ctx.body = {
           code: 200,
-          msg: "创建文章失败",
+          msg: "失败",
           data: err
         };
       }
@@ -39,7 +40,124 @@ class categoryController {
   }
 
   /**
-   * 获取文章详情
+   *
+   * @param ctx
+   * @returns {Promise<void>}
+   */
+  static async createCategorySecond(ctx) {
+    let req = ctx.request.body;
+    if (
+      req.name &&
+      req.img &&
+      req.show &&
+      req.weight &&
+      req.parent_id
+    ) {
+      try {
+        const data = await CategoryModel.createCategorySecond(req);
+        ctx.response.status = 200;
+        ctx.body = {
+          code: 200,
+          msg: "成功",
+          data
+        };
+      } catch (err) {
+        ctx.response.status = 412;
+        ctx.body = {
+          code: 200,
+          msg: "失败",
+          data: err
+        };
+      }
+    } else {
+      ctx.response.status = 416;
+      ctx.body = {
+        code: 200,
+        msg: "参数不齐全"
+      };
+    }
+  }
+
+  /**
+   *
+   * @param ctx
+   * @returns {Promise<void>}
+   */
+  static async updateCategoryFirst(ctx) {
+    let req = ctx.request.body;
+    if (
+      req.name &&
+      req.img &&
+      req.show &&
+      req.weight
+    ) {
+      try {
+        const data = await CategoryModel.updateCategoryFirst(req);
+        ctx.response.status = 200;
+        ctx.body = {
+          code: 200,
+          msg: "成功",
+          data
+        };
+      } catch (err) {
+        ctx.response.status = 412;
+        ctx.body = {
+          code: 200,
+          msg: "失败",
+          data: err
+        };
+      }
+    } else {
+      ctx.response.status = 416;
+      ctx.body = {
+        code: 200,
+        msg: "参数不齐全"
+      };
+    }
+  }
+
+  /**
+   *
+   * @param ctx
+   * @returns {Promise<void>}
+   */
+  static async updateCategorySecond(ctx) {
+    let req = ctx.request.body;
+    if (
+      req.name &&
+      req.img &&
+      req.show &&
+      req.weight &&
+      req.parent_id
+    ) {
+      try {
+        const data = await CategoryModel.createCategorySecond(req);
+        ctx.response.status = 200;
+        ctx.body = {
+          code: 200,
+          msg: "成功",
+          data
+        };
+      } catch (err) {
+        ctx.response.status = 412;
+        ctx.body = {
+          code: 200,
+          msg: "失败",
+          data: err
+        };
+      }
+    } else {
+      ctx.response.status = 416;
+      ctx.body = {
+        code: 200,
+        msg: "参数不齐全"
+      };
+    }
+  }
+
+
+  /**
+   *
    * @param ctx
    * @returns {Promise.<void>}
    */
@@ -62,6 +180,11 @@ class categoryController {
     }
   }
 
+  /**
+   *
+   * @param ctx
+   * @returns {Promise<void>}
+   */
   static async getCategorySecond(ctx) {
     let id = ctx.query.id;
     if (id) {
