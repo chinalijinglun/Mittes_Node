@@ -6,6 +6,7 @@ const order = require("./order");
 const shop = require("./shop");
 const sale = require("./sale");
 const upload = require("../utils/upload");
+
 const router = new Router({
   prefix: "/api/v1"
 });

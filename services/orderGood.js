@@ -1,29 +1,20 @@
-const moment = require("moment");
 module.exports = function(sequelize, DataTypes) {
   return sequelize.define(
-    "user",
+    "order_goods",
     {
       id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         allowNull: true,
-        autoIncrement: true
       },
-      name: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        field: "name"
+      order_id: {
+        type:DataTypes.INTEGER
       },
-      password: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        field: "password"
+      good_id: {
+        type:DataTypes.INTEGER
       },
-      phone: {
-        type: DataTypes.STRING
-      },
-      address: {
-        type: DataTypes.STRING,
+      count: {
+        type:DataTypes.INTEGER
       }
     },
     {
@@ -31,7 +22,7 @@ module.exports = function(sequelize, DataTypes) {
       // 为 false MySQL创建的表名称会是复数 users
       // 如果指定的表名称本就是复数形式则不变
       freezeTableName: true,
-      timestamps:false
+      timestamps:false //如果为false则不自动添加creat_at,update_at 等字段
     }
   );
 };

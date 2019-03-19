@@ -1,7 +1,7 @@
 const moment = require("moment");
 module.exports = function(sequelize, DataTypes) {
   return sequelize.define(
-    "user",
+    "orders",
     {
       id: {
         type: DataTypes.INTEGER,
@@ -9,21 +9,30 @@ module.exports = function(sequelize, DataTypes) {
         allowNull: true,
         autoIncrement: true
       },
-      name: {
-        type: DataTypes.STRING,
+      user_id: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+      },
+      create_time: {
+        type: DataTypes.DATE,
         allowNull: false,
-        field: "name"
+        get() {
+          return moment(this.getDataValue("create_time")).format(
+            "YYYY-MM-DD"
+          );
+        }
       },
-      password: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        field: "password"
+      total_price: {
+        type:DataTypes.DECIMAL,
       },
-      phone: {
-        type: DataTypes.STRING
+      pay_type: {
+        type:DataTypes.STRING,
       },
-      address: {
-        type: DataTypes.STRING,
+      score_price: {
+        type:DataTypes.DECIMAL
+      },
+      status: {
+        type:DataTypes.STRING
       }
     },
     {

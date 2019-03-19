@@ -1,0 +1,217 @@
+const CategoryModel = require("../models/category");
+
+class categoryController {
+  /**
+   *
+   * @param ctx
+   * @returns {Promise<void>}
+   */
+  static async createCategoryFirst(ctx) {
+    let req = ctx.request.body;
+    if (
+      req.name &&
+      req.img &&
+      req.show &&
+      req.weight
+    ) {
+      try {
+        const data = await CategoryModel.createCategoryFirst(req);
+        ctx.response.status = 200;
+        ctx.body = {
+          code: 200,
+          msg: "成功",
+          data
+        };
+      } catch (err) {
+        ctx.response.status = 412;
+        ctx.body = {
+          code: 200,
+          msg: "失败",
+          data: err
+        };
+      }
+    } else {
+      ctx.response.status = 416;
+      ctx.body = {
+        code: 200,
+        msg: "参数不齐全"
+      };
+    }
+  }
+
+  /**
+   *
+   * @param ctx
+   * @returns {Promise<void>}
+   */
+  static async createCategorySecond(ctx) {
+    let req = ctx.request.body;
+    if (
+      req.name &&
+      req.img &&
+      req.show &&
+      req.weight &&
+      req.parent_id
+    ) {
+      try {
+        const data = await CategoryModel.createCategorySecond(req);
+        ctx.response.status = 200;
+        ctx.body = {
+          code: 200,
+          msg: "成功",
+          data
+        };
+      } catch (err) {
+        ctx.response.status = 412;
+        ctx.body = {
+          code: 200,
+          msg: "失败",
+          data: err
+        };
+      }
+    } else {
+      ctx.response.status = 416;
+      ctx.body = {
+        code: 200,
+        msg: "参数不齐全"
+      };
+    }
+  }
+
+  /**
+   *
+   * @param ctx
+   * @returns {Promise<void>}
+   */
+  static async updateCategoryFirst(ctx) {
+    let req = ctx.request.body;
+    if (
+      req.name &&
+      req.img &&
+      req.show &&
+      req.weight
+    ) {
+      try {
+        const data = await CategoryModel.updateCategoryFirst(req);
+        ctx.response.status = 200;
+        ctx.body = {
+          code: 200,
+          msg: "成功",
+          data
+        };
+      } catch (err) {
+        ctx.response.status = 412;
+        ctx.body = {
+          code: 200,
+          msg: "失败",
+          data: err
+        };
+      }
+    } else {
+      ctx.response.status = 416;
+      ctx.body = {
+        code: 200,
+        msg: "参数不齐全"
+      };
+    }
+  }
+
+  /**
+   *
+   * @param ctx
+   * @returns {Promise<void>}
+   */
+  static async updateCategorySecond(ctx) {
+    let req = ctx.request.body;
+    if (
+      req.name &&
+      req.img &&
+      req.show &&
+      req.weight &&
+      req.parent_id
+    ) {
+      try {
+        const data = await CategoryModel.createCategorySecond(req);
+        ctx.response.status = 200;
+        ctx.body = {
+          code: 200,
+          msg: "成功",
+          data
+        };
+      } catch (err) {
+        ctx.response.status = 412;
+        ctx.body = {
+          code: 200,
+          msg: "失败",
+          data: err
+        };
+      }
+    } else {
+      ctx.response.status = 416;
+      ctx.body = {
+        code: 200,
+        msg: "参数不齐全"
+      };
+    }
+  }
+
+
+  /**
+   *
+   * @param ctx
+   * @returns {Promise.<void>}
+   */
+  static async getCategoryFirst(ctx) {
+    try {
+      let data = await CategoryModel.getCategoryFirstList();
+      ctx.response.status = 200;
+      ctx.body = {
+        code: 200,
+        msg: "查询成功",
+        data
+      };
+    } catch (err) {
+      ctx.response.status = 412;
+      ctx.body = {
+        code: 412,
+        msg: "查询失败",
+        err
+      };
+    }
+  }
+
+  /**
+   *
+   * @param ctx
+   * @returns {Promise<void>}
+   */
+  static async getCategorySecond(ctx) {
+    let id = ctx.query.id;
+    if (id) {
+      try {
+        let data = await CategoryModel.getCategorySecondList(id);
+        ctx.response.status = 200;
+        ctx.body = {
+          code: 200,
+          msg: "查询成功",
+          data
+        };
+      } catch (err) {
+        ctx.response.status = 412;
+        ctx.body = {
+          code: 412,
+          msg: "查询失败",
+          err
+        };
+      }
+    } else {
+      ctx.response.status = 416;
+      ctx.body = {
+        code: 416,
+        msg: "文章ID必须传"
+      };
+    }
+  }
+}
+
+module.exports = categoryController;

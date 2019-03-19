@@ -1,7 +1,6 @@
-const moment = require("moment");
 module.exports = function(sequelize, DataTypes) {
   return sequelize.define(
-    "user",
+    "category_first",
     {
       id: {
         type: DataTypes.INTEGER,
@@ -11,19 +10,16 @@ module.exports = function(sequelize, DataTypes) {
       },
       name: {
         type: DataTypes.STRING,
-        allowNull: false,
-        field: "name"
+        allowNull:true
       },
-      password: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        field: "password"
+      img: {
+        type:DataTypes.STRING
       },
-      phone: {
-        type: DataTypes.STRING
+      show: {
+        type:DataTypes.BOOLEAN
       },
-      address: {
-        type: DataTypes.STRING,
+      weight: {
+        type:DataTypes.INTEGER
       }
     },
     {
