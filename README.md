@@ -21,3 +21,9 @@ this.baseAxios
     console.log(data);
   });
 ```
+
+```javascript
+this.baseAxios.post("http://localhost:5000/api/v1/upload", fd).then(data => {
+  console.log(data);
+});
+```

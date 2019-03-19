@@ -9,6 +9,7 @@ const bodyparser = require("koa-bodyparser");
 const logger = require("koa-logger");
 const debug = require("debug")("koa2:server");
 const path = require("path");
+const koaBody = require("koa-body");
 
 const config = require("./config");
 const router = require("./routes");
@@ -51,6 +52,14 @@ app
       options: { settings: { views: path.join(__dirname, "views") } },
       map: { njk: "nunjucks" },
       extension: "njk"
+    })
+  )
+  .use(
+    koaBody({
+      multipart: true,
+      formidable: {
+        maxFileSize: 200 * 1024 * 1024 // 设置上传文件大小最大限制，默认2M
+      }
     })
   );
 
