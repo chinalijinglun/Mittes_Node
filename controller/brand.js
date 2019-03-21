@@ -84,6 +84,41 @@ class brandController {
     }
   }
 
+  static async updateBrandShow(ctx) {
+    let req = ctx.request.body;
+    console.log(ctx,req,ctx.request);
+    // let req = {name:'孙悟空',show:'0',image:'www.qq.com',weight:990,id:3};  //测试数据
+    if (
+      req.show &&
+      req.id
+    ) {
+      try {
+        const data = await BrandModel.updateBrandShow(req);
+
+        ctx.response.status = 200;
+        ctx.body = {
+          code: 200,
+          msg: "修改成功",
+          data
+        };
+      } catch (err) {
+        ctx.response.status = 412;
+        ctx.body = {
+          code: 200,
+          msg: "修改品牌失败",
+          data: err
+        };
+      }
+    } else {
+      ctx.response.status = 416;
+      ctx.body = {
+        code: 200,
+        msg: "参数不齐全"
+      };
+    }
+  }
+
+
   /**
    * 获取文章详情
    * @param ctx

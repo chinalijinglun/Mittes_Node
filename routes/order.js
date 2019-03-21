@@ -11,6 +11,7 @@ router.get('/getBrand',BrandController.getBrand);
 router.post('/creatBrand',BrandController.createBrand);
 //修改品牌
 router.post('/updateBrand',BrandController.updateBrand);
+router.post('/updateBrandShow',BrandController.updateBrandShow);
 //获取一级品类
 router.get('/getCategoryFirst',CategoryController.getCategoryFirst);
 //根据id获取二级品类

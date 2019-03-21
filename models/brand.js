@@ -37,6 +37,23 @@ class BrandModel {
   }
 
   /**
+   * 是否显示
+   * @param data
+   * @returns {Promise<*>}
+   */
+
+  static async updateBrandShow(data) {
+    return await Brand.update(
+      {
+      show:data.show
+      },
+      {
+        where:{id:data.id}
+      }
+    )
+  }
+
+  /**
    * 查询品牌列表
    * @returns {Promise<Model>}
    */
