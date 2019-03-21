@@ -9,6 +9,7 @@ class brandController {
   static async createBrand(ctx) {
     // 接收客服端
     let req = ctx.request.body;
+    console.log(req);
     // let req = {name:'竹蜻蜓',show:1,image:'www.baidu.com',weight:99};  测试数据
     if (
       req.name &&
@@ -56,7 +57,8 @@ class brandController {
       req.name &&
       req.show &&
       req.image &&
-      req.weight
+      req.weight &&
+      req.id
     ) {
       try {
         const data = await BrandModel.updateBrand(req);
@@ -86,7 +88,7 @@ class brandController {
 
   static async updateBrandShow(ctx) {
     let req = ctx.request.body;
-    console.log(ctx);
+    console.log(req);
     // let req = {name:'孙悟空',show:'0',image:'www.qq.com',weight:990,id:3};  //测试数据
     if (
       req.show &&
@@ -120,7 +122,7 @@ class brandController {
 
 
   /**
-   * 获取文章详情
+   * 获取列表
    * @param ctx
    * @returns {Promise.<void>}
    */
