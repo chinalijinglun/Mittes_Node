@@ -40,9 +40,8 @@ app.use(
   })
 );
 
-// middlewares
+// middlewares  .use(bodyparser())
 app
-  .use(bodyparser())
   .use(json())
   .use(logger())
   .use(require("koa-static")(__dirname + "/public"))
