@@ -2,7 +2,7 @@ const CategoryModel = require("../models/category");
 
 class categoryController {
   /**
-   *
+   * 添加一级品类
    * @param ctx
    * @returns {Promise<void>}
    */
@@ -40,7 +40,7 @@ class categoryController {
   }
 
   /**
-   *
+   *  添加二级品类
    * @param ctx
    * @returns {Promise<void>}
    */
@@ -48,9 +48,9 @@ class categoryController {
     let req = ctx.request.body;
     if (
       req.name &&
-      req.img &&
       req.show &&
       req.weight &&
+      req.property &&
       req.parent_id
     ) {
       try {
@@ -79,7 +79,7 @@ class categoryController {
   }
 
   /**
-   *
+   * 更新一级品类
    * @param ctx
    * @returns {Promise<void>}
    */
@@ -89,21 +89,22 @@ class categoryController {
       req.name &&
       req.img &&
       req.show &&
-      req.weight
+      req.weight &&
+      req.id
     ) {
       try {
         const data = await CategoryModel.updateCategoryFirst(req);
         ctx.response.status = 200;
         ctx.body = {
           code: 200,
-          msg: "成功",
+          msg: "修改一级品类成功",
           data
         };
       } catch (err) {
         ctx.response.status = 412;
         ctx.body = {
           code: 200,
-          msg: "失败",
+          msg: "修改一级品类失败",
           data: err
         };
       }
@@ -117,21 +118,17 @@ class categoryController {
   }
 
   /**
-   *
+   * 更新二级品类
    * @param ctx
    * @returns {Promise<void>}
    */
   static async updateCategorySecond(ctx) {
     let req = ctx.request.body;
     if (
-      req.name &&
-      req.img &&
-      req.show &&
-      req.weight &&
-      req.parent_id
+      req.id
     ) {
       try {
-        const data = await CategoryModel.createCategorySecond(req);
+        const data = await CategoryModel.updateCategorySecond(req);
         ctx.response.status = 200;
         ctx.body = {
           code: 200,

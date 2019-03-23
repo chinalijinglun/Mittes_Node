@@ -77,7 +77,6 @@ class CategoryModel {
     return await CategorySecond.update(
       {
         name:data.name,
-        parent_id:data.parent_id,
         property:data.property,
         show:data.show,
         weight:data.weight

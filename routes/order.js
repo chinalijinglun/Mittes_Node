@@ -23,7 +23,7 @@ router.post('/updateCategorySecond',CategoryController.updateCategorySecond);
 //添加一级品类
 router.post('/createCategoryFirst',CategoryController.createCategoryFirst);
 //添加二级品类
-router.post('/createCategoryFirst',CategoryController.createCategorySecond);
+router.post('/createCategorySecond',CategoryController.createCategorySecond);
 
 
 //创建订单
