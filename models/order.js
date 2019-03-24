@@ -62,10 +62,10 @@ class OrderModel {
     return Shop.findAll({
       include:[{
         model:Order,
-        attributes:[],
+        attributes:['id'],
         where:{
           id
-        }
+        },
       }]
     })
   }
