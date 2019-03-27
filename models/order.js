@@ -19,6 +19,58 @@ class OrderModel {
     });
   }
 
+
+  static async toSaleBack() {
+
+    return await Sequelize.transaction().then(function (t) {
+      return  Order.create({
+        create_time:Date.now(),
+        status:'status',
+        pay_type:'pay_type',
+        score_price:250,
+        total_price:250,
+        user_id:250
+      },{
+        transaction:t
+      }).then( (res) => {
+
+        return  Order.update({
+          status:'Mr.Chang'
+        },{
+          where:{user_id:9000},
+          transaction: t
+        })
+      }).then(res => {
+        // return Promise.resolve(t.commit())
+        return t.commit()
+      }).catch(err => {
+        // return Promise.reject(t.rollback());
+        throw t.rollback()
+      })
+    });
+
+    // return await Sequelize.transaction({},function (t) {
+    //   return  Order.create({
+    //     create_time:Date.now(),
+    //     status:'status',
+    //     pay_type:'pay_type',
+    //     score_price:250,
+    //     total_price:250,
+    //     user_id:250
+    //   },{
+    //     transaction:t
+    //   }).then( (res) => {
+    //
+    //     return  Order.update({
+    //       status:'Mr.Chang'
+    //     },{
+    //       where:{user:9000},
+    //       transaction: t
+    //     })
+    //   })
+    // })
+  }
+
   /**
    * 获取type查询相应订单列表
    * 1：待发货 2：已发货 3：已完成
@@ -67,6 +119,22 @@ class OrderModel {
           id
         },
       }]
+    })
+  }
+
+  /**
+   * 根据订单id修改发货状态
+   * @param data
+   * @returns {Promise<this>}
+   */
+
+  static async updateOrderStatus(data) {
+    return Order.update({
+      status:'已发货'
+    },{
+      where:{
+        id:data.id
+      }
     })
   }
 

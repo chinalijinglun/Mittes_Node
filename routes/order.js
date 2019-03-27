@@ -34,6 +34,10 @@ router.post('/createCategorySecond',CategoryController.createCategorySecond);
 router.get('/getOrderList',OrderController.getOrderList);
 //根据订单id获取所包含的商品信息
 router.get('/getOrderDetail',OrderController.getOrderDetail);
+//根据id修改订单状态
+router.post('/updateOrderStatus',OrderController.updateOrderStatus);
 //根据用户id获取用户信息
 router.get('/getUserInfo',OrderController.getUserInfo);
+
+router.get('/test',OrderController.test);
 module.exports = router;
