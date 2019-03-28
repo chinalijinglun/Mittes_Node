@@ -39,5 +39,5 @@ router.post('/updateOrderStatus',OrderController.updateOrderStatus);
 //根据用户id获取用户信息
 router.get('/getUserInfo',OrderController.getUserInfo);
 
-router.get('/test',OrderController.test);
+router.post('/toSaleBack',OrderController.toSaleBack);
 module.exports = router;

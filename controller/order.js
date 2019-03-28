@@ -2,23 +2,32 @@ const OrderModel = require("../models/order.js");
 
 class orderController {
 
-  static async test(ctx) {
-
-    try {
-
-      const data = await OrderModel.toSaleBack();
-      ctx.response.status = 200;
+  static async toSaleBack(ctx) {
+    let req = ctx.request.body;
+    if (
+      req.id
+    ) {
+      try {
+        const data = await OrderModel.toSaleBack(req);
+        ctx.response.status = 200;
+        ctx.body = {
+          code: 200,
+          msg: "成功",
+          data
+        };
+      } catch (err) {
+        ctx.response.status = 412;
+        ctx.body = {
+          code: 200,
+          msg: "失败",
+          data: err
+        };
+      }
+    } else {
+      ctx.response.status = 416;
       ctx.body = {
         code: 200,
-        msg: "成功",
-        data
-      };
-    } catch (err) {
-      ctx.response.status = 412;
-      ctx.body = {
-        code: 200,
-        msg: "失败",
-        data: err
+        msg: "参数不齐全"
       };
     }
   }
@@ -64,7 +73,12 @@ class orderController {
       };
     }
   }
-////////
+
+  /**
+   * 根据订单id更新状态
+   * @param ctx
+   * @returns {Promise<void>}
+   */
   static async updateOrderStatus(ctx) {
     let req = ctx.request.body;
     if (

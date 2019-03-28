@@ -4,6 +4,7 @@ const Order = Sequelize.import("../services/order.js");
 const Shop = Sequelize.import("../services/shop.js");
 const OrderGood = Sequelize.import("../services/orderGood.js");
 const User = Sequelize.import("../services/user.js");
+const Sale = Sequelize.import("../services/sale.js");
 // Order.hasMany(OrderGood,{foreignKey:'order_num',as:'info'});
 Shop.belongsToMany(Order,{through:OrderGood,foreignKey:'good_id',otherKey:'order_id'});
 
@@ -19,26 +20,28 @@ class OrderModel {
     });
   }
 
-
-  static async toSaleBack() {
-
+  /**
+   * 根据id把已完成订单转到售后表
+   * @param data
+   * @returns {Promise<*>}
+   */
+  static async toSaleBack(data) {
     return await Sequelize.transaction().then(function (t) {
-      return  Order.create({
-        create_time:Date.now(),
-        status:'status',
-        pay_type:'pay_type',
-        score_price:250,
-        total_price:250,
-        user_id:250
-      },{
-        transaction:t
+      return  Order.findOne({
+        transaction:t,
+        where:{id:data.id}
       }).then( (res) => {
-
-        return  Order.update({
-          status:'Mr.Chang'
+        return  Sale.create({
+          id:res.id,
+          price:res.total_price,
+          createdAt:res.create_time
         },{
-          where:{user_id:9000},
           transaction: t
+        })
+      }).then(res => {
+        return Order.destroy({
+          transaction:t,
+          where:{id:data.id}
         })
       }).then(res => {
         // return Promise.resolve(t.commit())
@@ -48,27 +51,6 @@ class OrderModel {
         throw t.rollback()
       })
     });
-
-    // return await Sequelize.transaction({},function (t) {
-    //   return  Order.create({
-    //     create_time:Date.now(),
-    //     status:'status',
-    //     pay_type:'pay_type',
-    //     score_price:250,
-    //     total_price:250,
-    //     user_id:250
-    //   },{
-    //     transaction:t
-    //   }).then( (res) => {
-    //
-    //     return  Order.update({
-    //       status:'Mr.Chang'
-    //     },{
-    //       where:{user:9000},
-    //       transaction: t
-    //     })
-    //   })
-    // })
   }
 
   /**
@@ -130,7 +112,7 @@ class OrderModel {
 
   static async updateOrderStatus(data) {
     return Order.update({
-      status:'已发货'
+      status:data.status
     },{
       where:{
         id:data.id

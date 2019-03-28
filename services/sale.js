@@ -9,11 +9,6 @@ module.exports = function(sequelize, DataTypes) {
         allowNull: true,
         autoIncrement: true
       },
-      num: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        field: "num"
-      },
       price: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -24,7 +19,7 @@ module.exports = function(sequelize, DataTypes) {
         type: DataTypes.DATE,
         get() {
           return moment(this.getDataValue("createdAt")).format(
-            "YYYY-MM-DD HH:mm:ss"
+            "YYYY-MM-DD"
           );
         }
       },
@@ -33,7 +28,7 @@ module.exports = function(sequelize, DataTypes) {
         type: DataTypes.DATE,
         get() {
           return moment(this.getDataValue("updatedAt")).format(
-            "YYYY-MM-DD HH:mm:ss"
+            "YYYY-MM-DD"
           );
         }
       }
