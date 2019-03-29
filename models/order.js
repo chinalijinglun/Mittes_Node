@@ -4,6 +4,7 @@ const Order = Sequelize.import("../services/order.js");
 const Shop = Sequelize.import("../services/shop.js");
 const OrderGood = Sequelize.import("../services/orderGood.js");
 const User = Sequelize.import("../services/user.js");
+const Sale = Sequelize.import("../services/sale.js");
 // Order.hasMany(OrderGood,{foreignKey:'order_num',as:'info'});
 Shop.belongsToMany(Order,{through:OrderGood,foreignKey:'good_id',otherKey:'order_id'});
 
@@ -16,6 +17,39 @@ class OrderModel {
       score_price:data.score_price,
       total_price:data.total_price,
       user_id:data.user_id
+    });
+  }
+
+  /**
+   * 根据id把已完成订单转到售后表
+   * @param data
+   * @returns {Promise<*>}
+   */
+  static async toSaleBack(data) {
+    return await Sequelize.transaction().then(function (t) {
+      return  Order.findOne({
+        transaction:t,
+        where:{id:data.id}
+      }).then( (res) => {
+        return  Sale.create({
+          id:res.id,
+          price:res.total_price,
+          createdAt:res.create_time
+        },{
+          transaction: t
+        })
+      }).then(res => {
+        return Order.destroy({
+          transaction:t,
+          where:{id:data.id}
+        })
+      }).then(res => {
+        // return Promise.resolve(t.commit())
+        return t.commit()
+      }).catch(err => {
+        // return Promise.reject(t.rollback());
+        throw t.rollback()
+      })
     });
   }
 
@@ -62,11 +96,27 @@ class OrderModel {
     return Shop.findAll({
       include:[{
         model:Order,
-        attributes:[],
+        attributes:['id'],
         where:{
           id
-        }
+        },
       }]
+    })
+  }
+
+  /**
+   * 根据订单id修改发货状态
+   * @param data
+   * @returns {Promise<this>}
+   */
+
+  static async updateOrderStatus(data) {
+    return Order.update({
+      status:data.status
+    },{
+      where:{
+        id:data.id
+      }
     })
   }
 

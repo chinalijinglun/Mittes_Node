@@ -2,6 +2,36 @@ const OrderModel = require("../models/order.js");
 
 class orderController {
 
+  static async toSaleBack(ctx) {
+    let req = ctx.request.body;
+    if (
+      req.id
+    ) {
+      try {
+        const data = await OrderModel.toSaleBack(req);
+        ctx.response.status = 200;
+        ctx.body = {
+          code: 200,
+          msg: "成功",
+          data
+        };
+      } catch (err) {
+        ctx.response.status = 412;
+        ctx.body = {
+          code: 200,
+          msg: "失败",
+          data: err
+        };
+      }
+    } else {
+      ctx.response.status = 416;
+      ctx.body = {
+        code: 200,
+        msg: "参数不齐全"
+      };
+    }
+  }
+
   static async createOrder(ctx) {
     // let req = ctx.request.body;
     let req = {
@@ -43,6 +73,42 @@ class orderController {
       };
     }
   }
+
+  /**
+   * 根据订单id更新状态
+   * @param ctx
+   * @returns {Promise<void>}
+   */
+  static async updateOrderStatus(ctx) {
+    let req = ctx.request.body;
+    if (
+      req.id
+    ) {
+      try {
+        const data = await OrderModel.updateOrderStatus(req);
+        ctx.response.status = 200;
+        ctx.body = {
+          code: 200,
+          msg: "成功",
+          data
+        };
+      } catch (err) {
+        ctx.response.status = 412;
+        ctx.body = {
+          code: 200,
+          msg: "失败",
+          data: err
+        };
+      }
+    } else {
+      ctx.response.status = 416;
+      ctx.body = {
+        code: 200,
+        msg: "参数不齐全"
+      };
+    }
+  }
+
 
   /**
    * 根据订单type获取相应的订单列表
