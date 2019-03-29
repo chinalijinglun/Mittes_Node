@@ -4,6 +4,7 @@ const router = new Router();
 const OrderController = require("../controller/order");
 const BrandController = require("../controller/brand");
 const CategoryController = require("../controller/category");
+const ShopController = require("../controller/shop");
 
 //获取品牌列表
 router.get('/getBrand',BrandController.getBrand);
@@ -40,4 +41,5 @@ router.post('/updateOrderStatus',OrderController.updateOrderStatus);
 router.get('/getUserInfo',OrderController.getUserInfo);
 
 router.post('/toSaleBack',OrderController.toSaleBack);
+router.get('/getShopList',ShopController.getShopList)
 module.exports = router;
