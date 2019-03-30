@@ -44,6 +44,9 @@ module.exports = function(sequelize, DataTypes) {
       },
       property: {
         type:DataTypes.JSON
+      },
+      brand_name: {
+        type:DataTypes.STRING
       }
     },
     {
