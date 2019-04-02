@@ -1,5 +1,6 @@
 const ShopModel = require("../models/shop.js");
 
+
 class shopController {
 
   /**
@@ -35,6 +36,48 @@ class shopController {
       };
     }
   }
+
+  static async getCategoryNames(ctx) {
+    try {
+      // 查询文章详情模型
+      let data = await ShopModel.getCategoryNames();
+      ctx.response.status = 200;
+      ctx.body = {
+        code: 200,
+        msg: "查询成功",
+        data
+      };
+    } catch (err) {
+      ctx.response.status = 412;
+      ctx.body = {
+        code: 412,
+        msg: "查询失败",
+        err
+      };
+    }
+  }
+
+  static async getBrandNames(ctx) {
+    try {
+      // 查询文章详情模型
+      let data = await ShopModel.getBrandNames();
+      ctx.response.status = 200;
+      ctx.body = {
+        code: 200,
+        msg: "查询成功",
+        data
+      };
+    } catch (err) {
+      ctx.response.status = 412;
+      ctx.body = {
+        code: 412,
+        msg: "查询失败",
+        err
+      };
+    }
+  }
+
+
 
 }
 
