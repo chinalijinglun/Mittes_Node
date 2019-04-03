@@ -12,6 +12,23 @@ class ShopModel {
       where:{type}
     });
   }
+  //添加商品
+  static async addShop(data) {
+    return await Shop.create({
+      type:data.shopType,
+      name:data.name,
+      img:data.imageUrl,
+      update_time: Date.now(),
+      create_time: Date.now(),
+      price:data.price,
+      property:data.property,
+      brand_name:data.brandName,
+      category_first_name: data.categoryFirstName,
+      category_second_name: data.categorySecondName,
+      total_count:data.count,
+      offer_price: data.offerPrice
+    })
+  }
   //查询一级品类、二级品类名
   static async getCategoryNames() {
     return await CategoryFirst.findAll({

@@ -4,4 +4,5 @@ const router = new Router();
 
 router.get('/getCategoryNames',ShopController.getCategoryNames);
 router.get('/getBrandNames',ShopController.getBrandNames);
+router.post('/createShop',ShopController.createShop);
 module.exports = router;
