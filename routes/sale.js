@@ -1,9 +1,11 @@
-const Router = require("koa-router");
-const UserModel = require("../controller/sale.js");
+const Router = require("koa-router")
+const saleController = require("../controller/sale")
 
-const router = new Router();
+const router = new Router()
 
-router.post("/sale", UserModel.create);
-router.get("/sale/:id", UserModel.detail);
+router.post("/sale", saleController.create)
+router.get("/sale/list", saleController.getOrderList)
+router.get("/sale/user", saleController.getUserInfo)
+router.get("/sale/:id", saleController.detail)
 
-module.exports = router;
+module.exports = router

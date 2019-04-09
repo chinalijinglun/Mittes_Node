@@ -3,9 +3,10 @@ const db = require("../config/db")
 // 引入Sequelize对象
 const Sequelize = db.sequelize
 // 引入上一步的文章数据表模型文件
+const User = Sequelize.import("../services/user.js")
 const Sale = Sequelize.import("../services/sale.js")
 // 自动创建表
-Sale.sync({force: false})
+Sale.sync({ force: false })
 
 class SaleModel {
   static async createSale(data) {
@@ -19,6 +20,17 @@ class SaleModel {
       where: {
         id
       }
+    })
+  }
+  //获取order列表
+  static async getOrderList() {
+    console.log(Sale)
+    return await Sale.findAll()
+  }
+  // 获取用户信息
+  static async getUserInfo(userId) {
+    return User.findOne({
+      where: { id: userId }
     })
   }
 }

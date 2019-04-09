@@ -24,6 +24,14 @@ class PushModel {
       }
     })
   }
+  static async getOneDetais(type) {
+    console.log(type)
+    return await Push.findAll({
+      where: {
+        type
+      }
+    })
+  }
 }
 
 module.exports = PushModel

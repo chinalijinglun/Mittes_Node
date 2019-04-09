@@ -21,7 +21,7 @@ module.exports = function(sequelize, DataTypes) {
       },
       img: {
         type: DataTypes.STRING,
-        allowNull: true,
+        allowNull: false,
         field: "img"
       },
       push_name: {

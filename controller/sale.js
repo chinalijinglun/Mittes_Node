@@ -59,6 +59,55 @@ class saleController {
       }
     }
   }
+
+  static async getOrderList(ctx) {
+    try {
+      // 查询文章详情模型
+      let data = await SaleModel.getOrderList()
+      console.log(data)
+      ctx.response.status = 200
+      ctx.body = {
+        code: 200,
+        msg: "查询成功",
+        data
+      }
+    } catch (err) {
+      ctx.response.status = 412
+      ctx.body = {
+        code: 412,
+        msg: "查询失败",
+        err
+      }
+    }
+  }
+
+  static async getUserInfo(ctx) {
+    let user_id = ctx.query.id
+    if (user_id) {
+      try {
+        let data = await SaleModel.getUserInfo(user_id)
+        ctx.response.status = 200
+        ctx.body = {
+          code: 200,
+          msg: "查询成功222",
+          data
+        }
+      } catch (err) {
+        ctx.response.status = 412
+        ctx.body = {
+          code: 412,
+          msg: "查询失败",
+          err
+        }
+      }
+    } else {
+      ctx.response.status = 416
+      ctx.body = {
+        code: 416,
+        msg: "订单user_id必须传"
+      }
+    }
+  }
 }
 
 module.exports = saleController

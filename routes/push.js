@@ -5,5 +5,6 @@ const router = new Router()
 
 router.post("/push", pushController.create)
 router.get("/push/:id", pushController.detail)
+router.get("/push/type/:type", pushController.getType)
 
 module.exports = router

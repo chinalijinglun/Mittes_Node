@@ -9,25 +9,17 @@ module.exports = function(sequelize, DataTypes) {
         allowNull: true,
         autoIncrement: true
       },
-      // num: {
-      //   type: DataTypes.STRING,
-      //   allowNull: false,
-      //   field: "num"
-      // },
-      // price: {
-      //   type: DataTypes.STRING,
-      //   allowNull: false,
-      //   field: "price"
-      // },
-      // 创建时间
-      // createdAt: {
-      //   type: DataTypes.DATE,
-      //   get() {
-      //     return moment(this.getDataValue("createdAt")).format(
-      //       "YYYY-MM-DD HH:mm:ss"
-      //     );
-      //   }
-      // },
+      total_price: {type: DataTypes.DECIMAL},
+      user_id: {type: DataTypes.INTEGER, allowNull: true},
+      pay_type: {
+        type: DataTypes.STRING
+      },
+      status: {
+        type: DataTypes.STRING
+      },
+      score_price: {
+        type: DataTypes.DECIMAL
+      },
       // 更新时间
       updatedAt: {
         type: DataTypes.DATE,
