@@ -47,6 +47,18 @@ module.exports = function(sequelize, DataTypes) {
       },
       brand_name: {
         type:DataTypes.STRING
+      },
+      category_first_name: {
+        type:DataTypes.STRING
+      },
+      category_second_name: {
+        type:DataTypes.STRING
+      },
+      total_count: {
+        type:DataTypes.INTEGER
+      },
+      offer_price: {
+        type:DataTypes.DECIMAL
       }
     },
     {
