@@ -5,6 +5,7 @@ const Sequelize = db.sequelize
 // 引入上一步的文章数据表模型文件
 const User = Sequelize.import("../services/user.js")
 const Sale = Sequelize.import("../services/sale.js")
+const OrderGood = Sequelize.import("../services/orderGood.js")
 // 自动创建表
 Sale.sync({ force: false })
 
@@ -31,6 +32,12 @@ class SaleModel {
   static async getUserInfo(userId) {
     return User.findOne({
       where: { id: userId }
+    })
+  }
+  // 通过order_id取得order_goods表中所有的good_id
+  static async getUserInfo(id) {
+    return OrderGood.findAll({
+      where: { order_id: id }
     })
   }
 }

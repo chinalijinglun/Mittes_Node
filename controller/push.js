@@ -66,6 +66,42 @@ class pushController {
     }
   }
 
+  static async changeDetail(ctx) {
+    let req = ctx.request.body
+    console.log(req)
+    if (
+      req.type &&
+      req.shop_name &&
+      req.img &&
+      req.push_name &&
+      req.push_content
+    ) {
+      try {
+        // 查询用户详情模型
+        let data = await PushModel.updatePush(req)
+        ctx.response.status = 200
+        ctx.body = {
+          code: 200,
+          msg: "修改成功",
+          data
+        }
+      } catch (err) {
+        ctx.response.status = 412
+        ctx.body = {
+          code: 412,
+          msg: "修改失败",
+          data
+        }
+      }
+    } else {
+      ctx.response.status = 416
+      ctx.body = {
+        code: 416,
+        msg: "推送ID必须传"
+      }
+    }
+  }
+
   static async getType(ctx) {
     let type = ctx.params.type
     if (type) {
