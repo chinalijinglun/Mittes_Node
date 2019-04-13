@@ -26,9 +26,21 @@ class ShopModel {
       category_first_name: data.categoryFirstName,
       category_second_name: data.categorySecondName,
       total_count:data.count,
-      offer_price: data.offerPrice
+      offer_price: data.offerPrice,
+      volume: 0
     })
   }
+  //发货后跟新shops表的销量(volume)
+  static async incrementVolume(data) {
+    return await Shop.findById(data.id).then(shop => {
+      shop.increment({
+        volume:data.volume
+      });
+    }).catch(err => {
+      console.log(err)
+    })
+  }
+
   //查询一级品类、二级品类名
   static async getCategoryNames() {
     return await CategoryFirst.findAll({
