@@ -84,10 +84,12 @@ class OrderModel {
             // })
           })
           .then(res => {
-            // return Order.destroy({
-            //   transaction: t,
-            //   where: { id: data.id }
-            // });
+            return Order.update({
+              status:'已售后'
+            },{
+              transaction: t,
+              where: { id: data.id }
+            });
           })
           .then(res => {
             // return Promise.resolve(t.commit())
