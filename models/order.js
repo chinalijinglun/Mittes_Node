@@ -67,7 +67,6 @@ class OrderModel {
               where: { order_id: data.id }
             })
               .then(datas => {
-                console.log('2222222222222')
                 for (var i = 0, usr; usr = datas[i++];) {
                   console.log('order_id=' + usr.order_id + ', good_id=' + usr.good_id + ', count=' + usr.count);
                   return SaleGood.create({
@@ -85,11 +84,11 @@ class OrderModel {
           })
           .then(res => {
             return Order.update({
-              status:'已售后'
-            },{
-              transaction: t,
-              where: { id: data.id }
-            });
+              status: '已售后'
+            }, {
+                transaction: t,
+                where: { id: data.id }
+              });
           })
           .then(res => {
             // return Promise.resolve(t.commit())
