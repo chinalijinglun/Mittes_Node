@@ -152,6 +152,67 @@ class categoryController {
     }
   }
 
+  //删除一级品类
+  static async deleteCategoryFirst(ctx) {
+    let req = ctx.request.body;
+    if (
+      req.id
+    ) {
+      try {
+        const data = await CategoryModel.deleteCategoryFirst(req);
+        ctx.response.status = 200;
+        ctx.body = {
+          code: 200,
+          msg: "删除一级品类成功",
+          data
+        };
+      } catch (err) {
+        ctx.response.status = 412;
+        ctx.body = {
+          code: 200,
+          msg: "删除一级品类失败",
+          data: err
+        };
+      }
+    } else {
+      ctx.response.status = 416;
+      ctx.body = {
+        code: 200,
+        msg: "参数不齐全"
+      };
+    }
+  }
+  //删除二级品类
+
+  static async deleteCategorySecond(ctx) {
+    let req = ctx.request.body;
+    if (
+      req.id
+    ) {
+      try {
+        const data = await CategoryModel.deleteCategorySecond(req);
+        ctx.response.status = 200;
+        ctx.body = {
+          code: 200,
+          msg: "删除二级品类成功",
+          data
+        };
+      } catch (err) {
+        ctx.response.status = 412;
+        ctx.body = {
+          code: 200,
+          msg: "删除二级品类失败",
+          data: err
+        };
+      }
+    } else {
+      ctx.response.status = 416;
+      ctx.body = {
+        code: 200,
+        msg: "参数不齐全"
+      };
+    }
+  }
 
   /**
    *

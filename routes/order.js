@@ -10,6 +10,8 @@ const ShopController = require("../controller/shop");
 router.get('/getBrand',BrandController.getBrand);
 //添加品牌
 router.post('/creatBrand',BrandController.createBrand);
+//删除品牌
+router.post('/deleteBrand',BrandController.deleteBrand);
 //修改品牌
 router.post('/updateBrand',BrandController.updateBrand);
 router.post('/updateBrandShow',BrandController.updateBrandShow);
@@ -25,6 +27,10 @@ router.post('/updateCategorySecond',CategoryController.updateCategorySecond);
 router.post('/createCategoryFirst',CategoryController.createCategoryFirst);
 //添加二级品类
 router.post('/createCategorySecond',CategoryController.createCategorySecond);
+//删除一级品类
+router.post('/deleteCategoryFirst',CategoryController.deleteCategoryFirst);
+//删除二级品类
+router.post('/deleteCategorySecond',CategoryController.deleteCategorySecond);
 
 
 //创建订单

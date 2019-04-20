@@ -37,6 +37,18 @@ class BrandModel {
   }
 
   /**
+   * 根据id删除品牌
+   * @param data
+   * @returns {Promise<undefined>}
+   */
+
+  static async deleteBrand(data) {
+    return await Brand.destroy({
+      where:{id:data.id}
+    })
+  }
+
+  /**
    * 是否显示
    * @param data
    * @returns {Promise<*>}

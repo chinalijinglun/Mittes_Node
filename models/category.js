@@ -69,6 +69,26 @@ class CategoryModel {
   }
 
   /**
+   * 删除一级品类
+   */
+
+  static async deleteCategoryFirst(data) {
+    return await CategoryFirst.destroy({
+      where:{id:data.id}
+    })
+  }
+
+  /**
+   * 删除二级品类
+   */
+
+  static async deleteCategorySecond(data) {
+    return await CategorySecond.destroy({
+      where:{id:data.id}
+    })
+  }
+
+  /**
    * 修改二级品类
    * @param data
    * @returns {Promise<*>}
