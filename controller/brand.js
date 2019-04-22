@@ -121,6 +121,37 @@ class brandController {
   }
 
 
+  static async deleteBrand(ctx) {
+    let req = ctx.request.body;
+    if (
+      req.id
+    ) {
+      try {
+        const data = await BrandModel.deleteBrand(req);
+
+        ctx.response.status = 200;
+        ctx.body = {
+          code: 200,
+          msg: "删除成功",
+          data
+        };
+      } catch (err) {
+        ctx.response.status = 412;
+        ctx.body = {
+          code: 200,
+          msg: "删除品牌失败",
+          data: err
+        };
+      }
+    } else {
+      ctx.response.status = 416;
+      ctx.body = {
+        code: 200,
+        msg: "参数不齐全"
+      };
+    }
+  }
+
   /**
    * 获取列表
    * @param ctx

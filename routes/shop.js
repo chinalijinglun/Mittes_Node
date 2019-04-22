@@ -7,4 +7,6 @@ router.get('/getBrandNames',ShopController.getBrandNames);
 router.post('/createShop',ShopController.createShop);
 
 router.post('/updateVolume',ShopController.incrementVolume);
+//删除商品
+router.post('/deleteShop',ShopController.deleteShop);
 module.exports = router;

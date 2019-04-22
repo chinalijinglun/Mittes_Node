@@ -30,6 +30,15 @@ class ShopModel {
       volume: 0
     })
   }
+
+  //删除商品，type更新为isDelete
+  static async deleteShop(data) {
+    return await Shop.update({
+      type:'isDelete'
+    },{
+      where:{id:data.id}
+    })
+  }
   //发货后跟新shops表的销量(volume)
   static async incrementVolume(data) {
     return await Shop.findById(data.id).then(shop => {
