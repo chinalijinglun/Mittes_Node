@@ -47,6 +47,14 @@ class PushModel {
       }
     })
   }
+  static async deletePush(id) {
+    return await Push.destroy({
+      where: {
+        id
+      }
+    })
+  }
+
 }
 
 module.exports = PushModel
