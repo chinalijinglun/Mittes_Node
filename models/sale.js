@@ -5,7 +5,7 @@ const Sequelize = db.sequelize
 // 引入上一步的文章数据表模型文件
 const User = Sequelize.import("../services/user.js")
 const Sale = Sequelize.import("../services/sale.js")
-const SaleGood = Sequelize.import("../services/SaleGood.js")
+const SaleGood = Sequelize.import("../services/saleGood.js")
 const Shop = Sequelize.import("../services/shop.js")
 const Order = Sequelize.import("../services/order.js")
 

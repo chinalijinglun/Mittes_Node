@@ -7,6 +7,7 @@ const shop = require("./shop")
 const sale = require("./sale")
 const push = require("./push")
 const upload = require("../utils/upload")
+const login = require("./login")
 
 const router = new Router({
   prefix: "/api/v1"
@@ -32,7 +33,8 @@ router.use(
   shop.routes(),
   sale.routes(),
   upload.routes(),
-  push.routes()
+  push.routes(),
+  login.routes()
 )
 
 module.exports = router

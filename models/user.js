@@ -3,7 +3,7 @@ const db = require("../config/db");
 // 引入Sequelize对象
 const Sequelize = db.sequelize;
 // 引入上一步的文章数据表模型文件
-const User = Sequelize.import("../services/user.js");
+const User = Sequelize.import("../services/login.js");
 // 自动创建表
 User.sync({ force: false });
 
@@ -29,6 +29,15 @@ class UserModel {
     return await User.findOne({
       where: {
         id
+      }
+    });
+  }
+
+  static async getUserDetails(name, password) {
+    return await User.findOne({
+      where: {
+        name: name,
+        password: password
       }
     });
   }

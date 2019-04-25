@@ -45,18 +45,30 @@ class userController {
    * @returns {Promise.<void>}
    */
   static async detail(ctx) {
-    let id = ctx.params.id;
+    let name = ctx.query.name;
+    let password = ctx.query.password;
 
-    if (id) {
+    if (name && password) {
       try {
         // 查询用户详情模型
-        let data = await UserModel.getUserDetail(id);
-        ctx.response.status = 200;
-        ctx.body = {
-          code: 200,
-          msg: "查询成功",
-          data
-        };
+        let data = await UserModel.getUserDetails(name, password);
+        console.log(data === null)
+        if (data != null) {
+          ctx.response.status = 200;
+          ctx.body = {
+            code: 200,
+            msg: "查询成功",
+            data
+          };
+        } else {
+          ctx.response.status = 416;
+          ctx.body = {
+            code: 201,
+            msg: "查无此人",
+            data
+          };
+        }
+
       } catch (err) {
         ctx.response.status = 412;
         ctx.body = {
@@ -69,7 +81,7 @@ class userController {
       ctx.response.status = 416;
       ctx.body = {
         code: 416,
-        msg: "用户ID必须传"
+        msg: "用户参数不全"
       };
     }
   }
